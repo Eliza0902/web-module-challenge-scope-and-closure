@@ -52,6 +52,9 @@ function counter2() {
   return count++;
 }
 
+// 1. counter1 does not contain a global variable and all varibles are only acessable inside of the function. counter 2 has a global varible.
+// 2. counter1 uses a closure because it contains a function inside of a function. Meaning the function runs before the code continues.
+// 3. counter1 is more useful when you don;t want count to be globally acceptable. Counter2 allows for count to be ussed and changed globally, meaning you can edit and change the value ouside of the function.
 
 /* ⚾️⚾️⚾️ Task 2: inning() ⚾️⚾️⚾️
 Use the inning function below to do the following:
@@ -62,9 +65,9 @@ Use the inning function below to do the following:
 NOTE: This will be a callback function for the tasks below
 */
 
-function inning(/*Code Here*/){
-    /*Code Here*/
-}
+function inning(){
+    return Math.floor(Math.random()*2);
+};
 
 
 /* ⚾️⚾️⚾️ Task 3: finalScore() ⚾️⚾️⚾️
@@ -81,8 +84,19 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(/*code Here*/){
-  /*Code Here*/
+function finalScore(callback, numPlayed){
+  let newObj = {}
+  let home = 0;
+  let away = 0;
+  for(let i=0; i<= numPlayed; i++){
+   home = callback() + home;
+    away = callback() + away;
+  }
+  return newObj = {
+    'Home' : home,
+    'Away' : away,
+
+  };
 }
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
@@ -90,10 +104,15 @@ Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
-}
+function getInningScore(callback) {
+  let newObj = {
+    'Home' : callback(),
+    'Away' : callback(),
+  }
+  return newObj;
+};
 
+console.log(getInningScore(inning))
 
 /* ⚾️⚾️⚾️ Task 5: scoreboard() ⚾️⚾️⚾️
 Use the scoreboard function below to do the following:
@@ -136,10 +155,16 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(callback1, callback2, innNum) {
+let newObj = []
+  for(let i = 0; i<= innNum; i++){
+newObj.push(`Inning ${i}: ${callback1(callback2)}`);
+};
+
+return newObj;
 }
 
+console.log(scoreboard(getInningScore,inning, 9));
 
 
 
